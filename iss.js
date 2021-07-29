@@ -26,13 +26,8 @@ const fetchMyIP = (calllback) => {
   });
 };
 
-//❕code check - was having errors running index.js. need to wrap imported variable in {}❕
-// fetchMyIP((error, ip) => {
-//   if (error) {
-//     console.log("Sorry, that didn't work!", error);
-//     return;
-//   }
-//   console.log("it worked! Returned IP:", ip);
-// });
+//❕was having errors running index.js. need to wrap imported variable in {}❕
 
-module.exports = { fetchMyIP };
+const fetchCoordsbyIP = (ip, calllback) => {};
+
+module.exports = { fetchMyIP, fetchCoordsbyIP };

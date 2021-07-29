@@ -8,36 +8,41 @@
  */
 const request = require("request");
 
-const fetchMyIP = (calllback) => {
+const fetchMyIP = (callback) => {
   //use request to fetch IP address from JSON API
-  request("https://api.ipify.org/?format=json", (error, response, body) => {
+  request("https://api.ipify.org/?format=json/", (error, response, body) => {
     if (error) {
-      calllback(error, null);
-      return;
+      return callback(error, null);
     }
     if (response.statusCode !== 200) {
-      const msg = `Status Code ${response.statusCode} when fetching IP. Response: ${body}`;
-      calllback(Error(msg), null);
+      const msg = `Status Code ${response.statusCode} when fetching IP. ${body}`;
+      callback(Error(msg), null);
       return;
     } else {
       let data = JSON.parse(body).ip;
-      calllback(null, data);
+      callback(null, data);
     }
   });
 };
 
 //❕was having errors running index.js. need to wrap imported variable in {}❕
 
-const fetchCoordsbyIP = (ip, calllback) => {
-  request("https://freegeoip.app/json/", (error, response, body) => {
+const fetchCoordsbyIP = (ip, callback) => {
+  request(`https://freegeoip.app/json/${ip}`, (error, response, body) => {
     if (error) {
-      calllback(error, null);
+      callback(error, null);
+      return;
+    }
+    if (response.statusCode !== 200) {
+      const msg = `Status Code ${response.statusCode} when fetching Coordinates for IP: ${body}`;
+      callback(Error(msg), null);
+      return;
     } else {
-      let dataobj = {};
-      let data = JSON.parse(body);
+      const dataobj = {};
+      const data = JSON.parse(body);
       dataobj["latitude"] = data.latitude;
       dataobj["longitude"] = data.longitude;
-      calllback(null, dataobj);
+      callback(null, dataobj);
     }
   });
 };

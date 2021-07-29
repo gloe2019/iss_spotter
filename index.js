@@ -13,14 +13,18 @@ const { fetchMyIP, fetchCoordsbyIP } = require("./iss");
 //   else console.log(data);
 // });
 
-let ip = fetchMyIP((error, ip) => {
+// let ip = fetchMyIP((error, ip) => {
+//   if (error) {
+//     console.log("Sorry that did not work!", error);
+//     return;
+//   }
+//   return ip;
+// });
+
+fetchCoordsbyIP("174.93.95.202", (error, data) => {
   if (error) {
-    console.log("Sorry that did not work!", error);
+    console.log(error);
     return;
   }
-  return ip;
-});
-fetchCoordsbyIP(ip, (error, data) => {
-  if (error) console.log(error);
-  else console.log(data);
+  console.log(data);
 });

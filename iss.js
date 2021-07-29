@@ -28,6 +28,18 @@ const fetchMyIP = (calllback) => {
 
 //❕was having errors running index.js. need to wrap imported variable in {}❕
 
-const fetchCoordsbyIP = (ip, calllback) => {};
+const fetchCoordsbyIP = (ip, calllback) => {
+  request("https://freegeoip.app/json/", (error, response, body) => {
+    if (error) {
+      calllback(error, null);
+    } else {
+      let dataobj = {};
+      let data = JSON.parse(body);
+      dataobj["latitude"] = data.latitude;
+      dataobj["longitude"] = data.longitude;
+      calllback(null, dataobj);
+    }
+  });
+};
 
 module.exports = { fetchMyIP, fetchCoordsbyIP };

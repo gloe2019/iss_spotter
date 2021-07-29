@@ -20,7 +20,7 @@ const fetchMyIP = (calllback) => {
       calllback(Error(msg), null);
       return;
     } else {
-      let data = JSON.parse(body);
+      let data = JSON.parse(body).ip;
       calllback(null, data);
     }
   });
